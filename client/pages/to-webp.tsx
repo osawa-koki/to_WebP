@@ -15,7 +15,7 @@ export default function ToWebP() {
       const result = target.result;
       if (!result) return;
       const img = new Image();
-      img.src = result;
+      img.src = result as string;
       img.onload = () => {
         const canvas = document.getElementById("MyCanvas") as HTMLCanvasElement;
         canvas.width = img.width;
