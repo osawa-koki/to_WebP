@@ -40,6 +40,8 @@ codespacesを使用したコミットはデフォルトでGPG署名がオフに�
 gpg --full-generate-key
 ```
 
+codespaces上でのユーザ名とメールアドレスの設定も必要。  
+
 ### パフォーマンス
 
 ~~少し遅いかも、、、~~  
