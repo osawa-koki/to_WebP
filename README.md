@@ -29,6 +29,17 @@ codespacesを使用したコミットはデフォルトでGPG署名がオフに�
 英語版でも同様の説明なのに、、、  
 いったんあきらめる。  
 
+---
+
+シェルからGPGキーを作成してみる。  
+さすがにこれはいけると思うけど、、、  
+
+[GitHubへのコミットに対して認証をしてみる。](https://github.com/osawa-koki/verified-commit)  
+
+```shell
+gpg --full-generate-key
+```
+
 ### パフォーマンス
 
 ~~少し遅いかも、、、~~  
