@@ -12,3 +12,8 @@
 # デバグ実行
 dotnet run --project ./server
 ```
+
+## 補足
+
+codespacesを使用したコミットはデフォルトでGPG署名がオフになっている。  
+これに署名をするには「設定 - Code, planning, and automation - GPG verification」をオンにする。  
