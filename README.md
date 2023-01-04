@@ -13,7 +13,9 @@
 dotnet run --project ./server
 ```
 
-## 補足
+## イロイロ
+
+### GPG署名
 
 codespacesを使用したコミットはデフォルトでGPG署名がオフになっている。  
 これに署名をするには「設定 - Code, planning, and automation - GPG verification」をオンにする。  
@@ -26,3 +28,16 @@ codespacesを使用したコミットはデフォルトでGPG署名がオフに�
 
 英語版でも同様の説明なのに、、、  
 いったんあきらめる。  
+
+### パフォーマンス
+
+~~少し遅いかも、、、~~  
+
+かなり遅い。  
+便利なんだけどね、、、  
+
+<https://github.com/osawa-koki/to_WebP/codespaces>から「マシンタイプ」の変更ができるけど、いまあるのは以下の2種類のみ。  
+どっちも遅いように感じる。  
+
+- 2-core | 4GB RAM • 32GB
+- 4-core | 8GB RAM • 32GB
