@@ -23,15 +23,11 @@ export default function ToWebP() {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
         ctx.drawImage(img, 0, 0);
-        const dataURL = canvas.toDataURL("image/webp");
 
-        
         // fetch
         const apiUrl = '/api/to-webp';
-
         // Canvas の imageData を base64 エンコードした文字列を取得する
         const imageData = canvas.toDataURL('image/webp').split(',')[1];
-
         // base64 エンコードされた文字列を Uint8Array に変換する
         const bin = atob(imageData);
         const buffer = new Uint8Array(bin.length);
@@ -41,7 +37,6 @@ export default function ToWebP() {
 
         // Uint8Array を Blob に変換する
         const blob = new Blob([buffer.buffer], { type: 'image/webp' });
-
         // FormData オブジェクトを作成する
         const formData = new FormData();
         formData.append('file', blob, 'image.webp');
