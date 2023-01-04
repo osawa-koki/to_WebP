@@ -2,3 +2,6 @@
 
 画像をWebP形式に変換するサイト。  
 主目的は[GitHub codespaces](https://docs.github.com/ja/codespaces)の学習。  
+
+[GitHub codespaces](https://docs.github.com/ja/codespaces)は、GitHub上でコードを編集するためのオンラインIDEです。  
+[GitHub codespaces](https://docs.github.com/ja/codespaces)を使って、このサイトを作成しました。  
