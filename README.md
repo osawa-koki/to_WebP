@@ -11,6 +11,9 @@
 ```shell
 # デバグ実行
 dotnet run --project ./server
+
+# Dockerで実行
+docker build -t to-webp . && docker run -p 8080:8080 -it --rm --name my-to-webp to-webp
 ```
 
 ## イロイロ
