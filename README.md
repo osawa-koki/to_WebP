@@ -17,3 +17,5 @@ dotnet run --project ./server
 
 codespacesを使用したコミットはデフォルトでGPG署名がオフになっている。  
 これに署名をするには「設定 - Code, planning, and automation - GPG verification」をオンにする。  
+
+変更するボタンがないんだけど、ラジオボタンを変更しただけでok?  
