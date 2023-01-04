@@ -24,9 +24,7 @@ export default function ToWebP() {
         if (!ctx) return;
         ctx.drawImage(img, 0, 0);
         const dataURL = canvas.toDataURL("image/webp");
-        const blob = dataURLtoBlob(dataURL);
-        const file = new File([blob], "test.webp", { type: "image/webp" });
-        console.log(file);
+        // fetch
       }
     };
     reader.readAsDataURL(file);
