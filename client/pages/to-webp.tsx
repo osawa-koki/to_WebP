@@ -24,7 +24,40 @@ export default function ToWebP() {
         if (!ctx) return;
         ctx.drawImage(img, 0, 0);
         const dataURL = canvas.toDataURL("image/webp");
+
+        
         // fetch
+        const apiUrl = '/api/to-webp';
+
+        // Canvas の imageData を base64 エンコードした文字列を取得する
+        const imageData = canvas.toDataURL('image/webp').split(',')[1];
+
+        // base64 エンコードされた文字列を Uint8Array に変換する
+        const bin = atob(imageData);
+        const buffer = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) {
+          buffer[i] = bin.charCodeAt(i);
+        }
+
+        // Uint8Array を Blob に変換する
+        const blob = new Blob([buffer.buffer], { type: 'image/webp' });
+
+        // FormData オブジェクトを作成する
+        const formData = new FormData();
+        formData.append('file', blob, 'image.webp');
+
+        const init: RequestInit = {
+          method: 'POST',
+          body: formData,
+        };
+
+        fetch(apiUrl, init)
+        .then((res) => {
+          // API のレスポンスを処理する
+        })
+        .catch((err) => {
+          // エラーを処理する
+        });
       }
     };
     reader.readAsDataURL(file);
