@@ -20,3 +20,5 @@ codespacesを使用したコミットはデフォルトでGPG署名がオフに�
 
 変更するボタンがないんだけど、ラジオボタンを変更しただけでok?  
 認証されないよ、、、  
+
+「All repositories」ではなく、「Selected repositories」に変更してみた。  
