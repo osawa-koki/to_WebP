@@ -19,3 +19,4 @@ codespacesを使用したコミットはデフォルトでGPG署名がオフに�
 これに署名をするには「設定 - Code, planning, and automation - GPG verification」をオンにする。  
 
 変更するボタンがないんだけど、ラジオボタンを変更しただけでok?  
+認証されないよ、、、  
