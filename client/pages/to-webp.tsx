@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { Button, ListGroup , Form } from 'react-bootstrap';
+import { Button, ListGroup , Form, Alert } from 'react-bootstrap';
 import Layout from "../components/Layout";
 
 export default function ToWebP() {
 
   const [files, setFiles] = useState<File[] | null>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const FileLoad = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -13,23 +14,33 @@ export default function ToWebP() {
     setFiles(files);
   };
 
-  const Cenvert = () => {
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("files", file);
-    });
-    fetch("/api/to-webp", {
-      method: "POST",
-      body: formData,
-    })
-    .then((res) => res.blob())
-    .then((blob) => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "converted.zip";
-      a.click();
-    });
+  const Cenvert = async () => {
+    try {
+      setError(null);
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("files", file);
+      });
+      await fetch("/api/to-webp", {
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error("Failed to convert.");
+        }
+        return res.blob();
+      })
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "converted.zip";
+        a.click();
+      });
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -54,9 +65,15 @@ export default function ToWebP() {
         </div>
         {
           files.length > 0 &&
-          <div id="ButtonDiv" className="center box" onClick={Cenvert}>
-            <Button variant="outline-primary">Convert 🐍</Button>
+          <div id="ButtonDiv" className="center box">
+            <Button variant="outline-primary" onClick={Cenvert}>Convert 🐍</Button>
           </div>
+        }
+        {
+          error &&
+          <Alert variant="danger" className="box">
+            {error}
+          </Alert>
         }
       </main>
     </Layout>
