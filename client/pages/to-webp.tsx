@@ -21,7 +21,7 @@ export default function ToWebP() {
       files.forEach((file) => {
         formData.append("files", file);
       });
-      await fetch("/api/to-webp", {
+      await fetch("http://localhost:8080/api/to-webp", {
         method: "POST",
         body: formData,
       })
