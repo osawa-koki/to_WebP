@@ -22,9 +22,6 @@ header {
 main {
   max-width: 800px;
   margin: 100px auto;
-  ul, ol, p, div {
-    margin-top: 1rem;
-  }
 }
 
 #Links {
@@ -45,4 +42,14 @@ main {
       text-decoration: underline;
     }
   }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  margin-top: 1rem;
 }
