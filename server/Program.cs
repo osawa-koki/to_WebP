@@ -37,16 +37,19 @@ var api = app.MapGroup("/api");
   api.MapPost("/to-webp", (HttpRequest request) =>
   {
     var files = request.Form.Files;
-    var uris = new List<string>();
+    var uris = new Dictionary<string, string>();
     files.ToList().ForEach(file =>
     {
       string guid = Guid.NewGuid().ToString().ToLower();
       string filename = $"./tmp/{guid}.webp";
       using Image image = Image.Load(file.OpenReadStream());
       image.SaveAsWebp(filename);
-      uris.Add($"/api/read/{guid}");
+      uris.Add(file.FileName, guid);
     });
     return Results.Ok(uris);
+  });
+  api.MapGet("/read", (string guid) => {
+    return Results.Ok(File.ReadAllBytes($"./tmp/{guid}.webp"));
   });
 }
 

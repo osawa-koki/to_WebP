@@ -6,6 +6,7 @@ import setting from "../setting";
 
 export default function ToWebP() {
 
+  const [uris, setUris] = useState<Map<string, string>>(new Map());
   const [files, setFiles] = useState<File[] | null>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,14 +31,9 @@ export default function ToWebP() {
         if (res.status !== 200) {
           throw new Error("Failed to convert.");
         }
-        return res.blob();
+        return res.json();
       })
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "converted.zip";
-        a.click();
+      .then((uris) => {
       });
     } catch (error) {
       setError(error.message);
