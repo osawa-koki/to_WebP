@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Button, ListGroup , Form, Alert } from 'react-bootstrap';
 import Layout from "../components/Layout";
+import setting from "../setting";
 
 export default function ToWebP() {
 
@@ -21,7 +22,7 @@ export default function ToWebP() {
       files.forEach((file) => {
         formData.append("files", file);
       });
-      await fetch("http://localhost:8080/api/to-webp", {
+      await fetch(`${setting.apiBasePath}/api/to-webp`, {
         method: "POST",
         body: formData,
       })
