@@ -36,20 +36,28 @@ var api = app.MapGroup("/api");
 {
   api.MapPost("/to-webp", (HttpRequest request) =>
   {
-    var files = request.Form.Files;
-    var uris = new Dictionary<string, string>();
-    files.ToList().ForEach(file =>
-    {
-      string guid = Guid.NewGuid().ToString().ToLower();
-      string filename = $"./tmp/{guid}.webp";
-      using Image image = Image.Load(file.OpenReadStream());
-      image.SaveAsWebp(filename);
-      uris.Add(file.FileName, guid);
-    });
-    return Results.Ok(uris);
+    try {
+      var files = request.Form.Files;
+      var uris = new Dictionary<string, string>();
+      files.ToList().ForEach(file =>
+      {
+        string guid = Guid.NewGuid().ToString().ToLower();
+        string filename = $"./tmp/{guid}.webp";
+        using Image image = Image.Load(file.OpenReadStream());
+        image.SaveAsWebp(filename);
+        uris.Add(file.FileName, guid);
+      });
+      return Results.Ok(uris);
+    } catch (Exception e) {
+      return Results.Problem(e.Message);
+    }
   });
   api.MapGet("/webp/{guid}", (string guid) => {
-    return Results.File(File.ReadAllBytes($"./tmp/{guid}.webp"), "image/webp");
+    try {
+      return Results.File(File.ReadAllBytes($"./tmp/{guid}.webp"), "image/webp");
+    } catch (Exception e) {
+      return Results.Problem(e.Message);
+    }
   });
 }
 
