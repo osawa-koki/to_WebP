@@ -16,6 +16,7 @@ export default function ToWebP() {
 
   const [uris, setUris] = useState<Map<string, string>>(new Map());
   const [files, setFiles] = useState<File[] | null>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const FileLoad = (e: React.FormEvent<HTMLInputElement>) => {
@@ -27,6 +28,7 @@ export default function ToWebP() {
   const Cenvert = async () => {
     try {
       setError(null);
+      setLoading(true);
       const formData = new FormData();
       files.forEach((file) => {
         formData.append("files", file);
@@ -47,9 +49,11 @@ export default function ToWebP() {
           map.set(key, res[key]);
         });
         setUris(map);
+        setLoading(false);
       });
     } catch (error) {
       setError(error.message);
+      setLoading(false);
     }
   };
 
@@ -76,7 +80,11 @@ export default function ToWebP() {
         {
           files.length > 0 &&
           <div id="ButtonDiv" className="center box">
-            <Button variant="outline-primary" onClick={Cenvert}>Convert 🐍</Button>
+            <Button variant="outline-primary" onClick={Cenvert} disabled={loading}>
+              {
+                loading ? <>Converting...</> :  <>🐍 Convert 🐍</>
+              }
+            </Button>
           </div>
         }
         {
