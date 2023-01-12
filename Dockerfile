@@ -19,6 +19,7 @@ RUN dotnet publish server.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
+RUN mkdir ./tmp
 COPY --from=publish /app/publish .
 COPY --from=web_client /usr/src/client/dist ./wwwroot
 ENTRYPOINT ["dotnet", "server.dll"]
