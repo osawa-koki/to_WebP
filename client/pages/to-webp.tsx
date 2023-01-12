@@ -4,6 +4,14 @@ import { Button, ListGroup , Form, Alert } from 'react-bootstrap';
 import Layout from "../components/Layout";
 import setting from "../setting";
 
+function Ext2Webp(filename: string) {
+  const ext = filename.split(".").pop();
+  if (ext === undefined) {
+    return filename;
+  }
+  return `${filename.slice(0, -ext.length)}webp`;
+}
+
 export default function ToWebP() {
 
   const [uris, setUris] = useState<Map<string, string>>(new Map());
@@ -33,7 +41,12 @@ export default function ToWebP() {
         }
         return res.json();
       })
-      .then((uris) => {
+      .then((res) => {
+        const map = new Map<string, string>();
+        Object.keys(res).forEach((key) => {
+          map.set(key, res[key]);
+        });
+        setUris(map);
       });
     } catch (error) {
       setError(error.message);
@@ -64,6 +77,22 @@ export default function ToWebP() {
           files.length > 0 &&
           <div id="ButtonDiv" className="center box">
             <Button variant="outline-primary" onClick={Cenvert}>Convert 🐍</Button>
+          </div>
+        }
+        {
+          uris.size > 0 &&
+          <div id="UrisDiv" className="box">
+            <ListGroup>
+              {
+                Array.from(uris.entries()).map(([key, value], index) => {
+                  return (
+                    <ListGroup.Item key={index}>
+                      <a href={`${setting.apiBasePath}/api/webp/${value}`} download={`${Ext2Webp(key)}`}>download - {key}</a>
+                    </ListGroup.Item>
+                  );
+                })
+              }
+            </ListGroup>
           </div>
         }
         {

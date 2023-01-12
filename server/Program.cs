@@ -48,8 +48,8 @@ var api = app.MapGroup("/api");
     });
     return Results.Ok(uris);
   });
-  api.MapGet("/read", (string guid) => {
-    return Results.Ok(File.ReadAllBytes($"./tmp/{guid}.webp"));
+  api.MapGet("/webp/{guid}", (string guid) => {
+    return Results.File(File.ReadAllBytes($"./tmp/{guid}.webp"), "image/webp");
   });
 }
 
