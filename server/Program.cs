@@ -37,20 +37,16 @@ var api = app.MapGroup("/api");
   api.MapPost("/to-webp", (HttpRequest request) =>
   {
     var files = request.Form.Files;
-    var content = new MultipartFormDataContent();
+    var uris = new List<string>();
     files.ToList().ForEach(file =>
     {
       string guid = Guid.NewGuid().ToString().ToLower();
       string filename = $"./tmp/{guid}.webp";
       using Image image = Image.Load(file.OpenReadStream());
       image.SaveAsWebp(filename);
-      content.Add(new ByteArrayContent(File.ReadAllBytes(filename)), "file", $"{file.Name}.webp");
+      uris.Add($"/api/read/{guid}");
     });
-    
-    return new HttpResponseMessage(HttpStatusCode.OK)
-    {
-      Content = content,
-    };
+    return Results.Ok(uris);
   });
 }
 
